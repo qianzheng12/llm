@@ -1,6 +1,7 @@
 import mimetypes
 import os
 from pathlib import Path
+from typing import List, Dict
 
 import dotenv
 
@@ -12,7 +13,6 @@ from google.cloud.documentai_v1 import Document
 # This will return True if your env vars are loaded successfully
 dotenv.load_dotenv()
 
-
 class DocumentAI:
     """Wrapper class around GCP's DocumentAI API."""
     def __init__(self) -> None:
@@ -21,6 +21,7 @@ class DocumentAI:
             api_endpoint=f"{os.getenv('GCP_REGION')}-documentai.googleapis.com",
             credentials_file=os.getenv("GOOGLE_APPLICATION_CREDENTIALS"),
         )
+
         self.client = documentai.DocumentProcessorServiceClient(client_options=self.client_options)
         self.processor_name = self.client.processor_path(
             os.getenv("GCP_PROJECT_ID"),
@@ -49,9 +50,22 @@ class DocumentAI:
 
         return document
 
+    def layout_to_text(self, layout: documentai.Document.Page.Layout, text: str) -> str:
+        """
+        Document AI identifies text in different parts of the document by their
+        offsets in the entirety of the document"s text. This function converts
+        offsets to a string.
+        """
+        # If a text segment spans several lines, it will
+        # be stored in different text segments.
+        return "".join(
+            text[int(segment.start_index) : int(segment.end_index)]
+            for segment in layout.text_anchor.text_segments
+        )
+
 
 if __name__ == '__main__':
 
     # Example Usage
     document_ai = DocumentAI()
-    document = document_ai(Path("data/sample.pdf"))
+    document = document_ai(Path("data/inpatient_record_short.pdf"))
