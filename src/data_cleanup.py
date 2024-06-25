@@ -19,12 +19,15 @@ Look for Medical Examination term like MRI, CT, X-ray as a sign of a new report 
 
 Note:
 The first date that's mentioned in every page is just a print date for fax, you can ignore it.
+The format of the vist date for visit record is usually : Office visit : MM/DD/YYYY
+The format of the vist date for report record is usually : Date : MM/DD/YYYY Department \n
 
 Your task is to clean up identify the page and content to clean up following the rules below:
 1. There are sometimes duplicated information within different records or same record, 
-you need to identify the content and page. for example personal information like name, address, phone number.
+you need to identify the content and page. For example DOB and ages, Family history, Medication list, Allergies, etc.
 2. The order of record might not be the correct order, so I need you to reorder the records based on the visit date (latest come first).
-Look for Office Visit (office record) or Date (report record) for reference of the visit date. But remember, one record might have multiple pages, and you have to reorder them as a group.
+Look for Office Visit (office record) or Date before Department (report record) as reference of the visit date. 
+But remember, one record might have multiple pages, and you have to reorder them as a group. And you should ignore the date at start of every page
 for example if page 4,5,6 is for a record happened after page 2,3. then I want you to reorder them to 4,5,6,2,3
 
 Note:
