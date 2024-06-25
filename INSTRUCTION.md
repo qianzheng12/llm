@@ -25,3 +25,8 @@ You will need GCP set up and OpenAI set up
 python submission.py --path-to-case-pdf ./data/inpatient_record.pdf
 
 it will create a cleaned_data.txt which contains a cleaned up data.
+
+
+
+### Demo video
+https://www.loom.com/share/cfb62e94e8654905809212a82f9da9e5?sid=d7c1655f-dc28-42c9-b7df-f1a1128ccfc6
